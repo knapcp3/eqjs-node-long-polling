@@ -1,25 +1,22 @@
 import { createServer, Server } from 'http';
-import Router from './../Router/Router';
+import Router from '../Router/Router';
 import ecstatic from 'ecstatic';
+import { talksService } from '../Talks/Talks.service';
 
-const router = new Router();
+
 const defaultHeaders = { 'Content-Type': 'text/plain' };
 
 class SkillShareServer {
-  private talks: any;
-  private version: number;
-  private waiting: any[];
-  private server: Server;
+  private _server: Server;
+  private _router: Router;
 
-  constructor(talks: any) {
-    this.talks = talks;
-    this.version = 0;
-    this.waiting = [];
+  constructor(router: Router) {
+    this._router = router;
 
     const fileServer = ecstatic({ root: `${process.cwd()}/build/public` });
 
-    this.server = createServer((request, response) => {
-      const resolved = router.resolve(this, request);
+    this._server = createServer((request, response) => {
+      const resolved = this._router.resolve(request);
 
       if (resolved) {
         resolved
@@ -30,6 +27,12 @@ class SkillShareServer {
           .then(({ body, status = 200, headers = defaultHeaders }) => {
             response.writeHead(status, headers);
             response.end(body);
+            
+            console.log('---P');
+            console.log(body);
+            console.log(status);
+            console.log(headers);
+            console.log('---K');
           });
       } else {
         fileServer(request, response);
@@ -38,11 +41,11 @@ class SkillShareServer {
   }
 
   start(port: number): void {
-    this.server.listen(port);
+    this._server.listen(port);
   }
-  
+
   stop(): void {
-    this.server.close();
+    this._server.close();
   }
 }
 

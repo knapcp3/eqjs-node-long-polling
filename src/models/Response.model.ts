@@ -1,4 +1,5 @@
 export interface Response {
-  body: string;
-  status?: string;
+  body?: string;
+  status?: number;
+  headers?: unknown;
 }

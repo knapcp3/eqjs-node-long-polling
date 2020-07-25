@@ -1,7 +1,7 @@
-import { parse } from "url";
-import { Route } from "../models/Route.model";
-import { IncomingMessage } from "http";
-import SkillShareServer from "src/SkillShareServer/SkillShareServer";
+import { parse } from 'url';
+import { Route, RequestHandler } from '../models/Route.model';
+import { IncomingMessage } from 'http';
+import { Response } from '../models/Response.model';
 
 class Router {
   private _routes: Route[];
@@ -10,18 +10,18 @@ class Router {
     this._routes = [];
   }
 
-  add(method: string, url: RegExp, handler: () => Promise<Response>): void {
-    this.routes.push({ method, url, handler });
+  add(method: string, urlRegex: RegExp, handler: RequestHandler): void {
+    this._routes.push({ method, urlRegex, handler });
   }
-  
-  resolve(context: SkillShareServer, request: IncomingMessage): Promise<Response> | null {
+
+  resolve(request: IncomingMessage): Promise<Response> | null {
     const path = parse(request.url || '').pathname || '';
 
-    for (const { method, url, handler } of this.routes) {
-      const match = url.exec(path);
+    for (const { method, urlRegex, handler } of this.routes) {
+      const match = urlRegex.exec(path);
       if (!match || request.method != method) continue;
-      const urlParts = match.slice(1).map(decodeURIComponent);
-      return handler(context, ...urlParts, request);
+      const urlMatches = match.slice(1).map(decodeURIComponent);
+      return handler(urlMatches, request);
     }
     return null;
   }
@@ -29,6 +29,6 @@ class Router {
   public get routes(): Route[] {
     return this._routes;
   }
-};
+}
 
 export default Router;
