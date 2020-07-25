@@ -4,6 +4,7 @@ import { ICRUDService } from '../models/services.model';
 import { Talk } from '../models/Talk.model';
 import { Response } from '../models/Response.model';
 import { Comment } from '../models/Comment.model';
+import { HEADERS } from '../modules/headers';
 
 class TalksServiceProxy implements ICRUDService<Talk, Talk> {
   private _talksService: TalksService;
@@ -30,9 +31,9 @@ class TalksServiceProxy implements ICRUDService<Talk, Talk> {
       status: 200,
       body: JSON.stringify(talks),
       headers: {
-        'Content-Type': 'application/json',
-        ETag: this._version,
-        'Cache-Control': 'no-store',
+        [HEADERS.CONTENT_TYPE]: HEADERS.APP_JSON,
+        [HEADERS.ETAG]: this._version,
+        [HEADERS.CACHE_CONTROL]: HEADERS.NO_STORE,
       },
     };
   }

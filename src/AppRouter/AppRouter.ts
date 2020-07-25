@@ -20,7 +20,9 @@ appRouter.add('GET', talkPathWithParamRegex, async (urlMatches) => {
     return {
       body: JSON.stringify(talk),
       status: 200,
-      headers: HEADERS.CONTENT_TYPE.APP_JSON,
+      headers: {
+        [HEADERS.CONTENT_TYPE]: HEADERS.APP_JSON,
+      },
     };
   } else {
     return {
