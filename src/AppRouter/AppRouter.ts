@@ -2,9 +2,9 @@ import Router from '../Router/Router';
 import { talksServiceProxy } from '../Talks/Talks.service.proxy';
 import { HEADERS } from '../modules/headers';
 import { readStream } from '../modules/utils';
-import { Talk, TalkRB } from 'src/models/Talk.model';
+import { Talk, TalkRB } from '../models/Talk.model';
 import uniqid from 'uniqid';
-import { Comment } from 'src/models/Comment.model';
+import { Comment } from '../models/Comment.model';
 
 const appRouter = new Router();
 
@@ -128,7 +128,7 @@ appRouter.add('POST', commentPathRegex, async (urlMatches, request) => {
   const talk = await talksServiceProxy.findById(talkId);
 
   if (talk) {
-    talk.comments.push(comment);
+    await talksServiceProxy.createComment(talkId, comment);
     return {
       status: 201,
       body: JSON.stringify(comment),

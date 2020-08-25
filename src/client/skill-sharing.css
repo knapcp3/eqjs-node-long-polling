@@ -1,0 +1,29 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.skill-sharing {
+  padding: 20px;
+}
+
+.talks {
+  display: flex;
+  flex-direction: column;
+}
+
+.talks__talk {
+  margin-bottom: 20px;
+}
+
+.talk {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.talk-form {
+  display: flex;
+  flex-direction: column;
+}

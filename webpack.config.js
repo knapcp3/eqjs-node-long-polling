@@ -22,6 +22,9 @@ module.exports = {
     contentBase: dirBuildPublic,
     host: '0.0.0.0',
   },
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
+  },
   module: {
     rules: [
       {

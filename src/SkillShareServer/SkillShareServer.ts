@@ -3,7 +3,6 @@ import Router from '../Router/Router';
 import ecstatic from 'ecstatic';
 import { talksService } from '../Talks/Talks.service';
 
-
 const defaultHeaders = { 'Content-Type': 'text/plain' };
 
 class SkillShareServer {
@@ -27,12 +26,12 @@ class SkillShareServer {
           .then(({ body, status = 200, headers = defaultHeaders }) => {
             response.writeHead(status, headers);
             response.end(body);
-            
-            console.log('---P');
-            console.log(body);
-            console.log(status);
-            console.log(headers);
-            console.log('---K');
+
+            // console.log('---P');
+            // console.log(body);
+            // console.log(status);
+            // console.log(headers);
+            // console.log('---K');
           });
       } else {
         fileServer(request, response);

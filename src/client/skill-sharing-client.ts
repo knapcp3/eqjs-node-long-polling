@@ -1,1 +1,4 @@
-console.log('client script ok');
+import './skill-sharing.css';
+import runApp from './modules/runApp';
+
+runApp();
