@@ -40,7 +40,7 @@ class TalksService {
         }
       } catch (error) {
         this.handleError(error);
-        Promise.resolve();
+        await new Promise((resolve) => setTimeout(resolve, 1000));
       }
       sendRequest();
     };
