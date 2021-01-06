@@ -43,7 +43,7 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
-    "axios": "^0.20.0",
+    "axios": "^0.21.1",
     "ecstatic": "^4.1.4",
     "uniqid": "^5.2.0"
   }
